@@ -1,0 +1,80 @@
+
+
+<?php
+	require_once '../models/config.php';
+	require_once 'classes/db_row.class.php';
+	
+	$my_cp_no = $loggedInUser->cpnomber;
+	$my_post_id = $loggedInUser->post_id;
+	$table = NULL;
+	$fields = NULL;
+	$key = NULL;
+	
+
+	
+	if(isset($_POST['c'])){
+		$conn = new db_rows();
+		
+		$ipo_cp = decrypt($_POST['c']);
+		$index_no = $_POST['k'];
+		
+		$table = "noticas INNER JOIN incident_types ON noticas.incident_type_id = incident_types.id";
+		$fields = array(
+						array('noticas.id', 'incident_id'),
+						array('noticas.incident_date', 'incident_date'),
+						array('noticas.noticas_date', 'record_date'),
+						array('incident_types.incident_type', 'incident_type')
+				  );
+				  
+		$key = "noticas.casualty_cp_no = '$ipo_cp' ";
+		
+		$rows = $conn->get_rows($table, $fields, $key);
+		
+		if(is_array($rows)){
+		
+				$footer = "<tr>
+								<th colspan=\"4\" >
+									<button onclick=\"new_noticas('$index_no', 'c')\">Cancel</button>
+								</th>
+						  </tr>
+					  </table>";
+					  
+			$header = "<table>";
+			$item = NULL;
+			$item .= "<tr>
+							<th width=\"17%\">Date & Time of Incident.</th>
+							<th>
+								Incident
+							</th>
+							<th width=\"17%\">
+								Date Recorded
+							</th>
+							<th width=\"15%\">
+								
+							</th>									
+					</tr>";
+					
+			foreach($rows as $row){
+				extract($row);
+		 
+				$item .= "<tr>
+								<td>". date("d M Y h:m", strtotime($incident_date)). "</td>
+								<td>$incident_type</td>
+								<td>". date("d M Y h:m", strtotime($record_date)). "</td>
+								<td>
+									<a href=\"index.php?p=" .encrypt('noticas_pdf')."&i=" 
+									  .encrypt($incident_id)."\" target=\"_blank\"> PDF </a> 
+									  
+									Edit
+								</td>  
+						  </tr>";
+						  
+			}	
+			
+			echo $header.$item.$footer;
+		}
+		 else
+			 echo $rows;
+	}
+
+?>

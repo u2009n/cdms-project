@@ -1,0 +1,24 @@
+<?php
+require_once 'db_row.class.php';
+
+class contingent{
+    	public $contingent_id=0;
+		public $contingent_name='';
+		public $ErrMsg = '';
+		
+
+	public function getContingent($contingentID){
+	    $db_con = new db_rows;
+		$res= array();
+		if (is_array($res= $db_con->get_rows('country', array('cntr_id', 'cntr_name'),  "cntr_id LIKE '%$contingentID%'"))){
+			$contingent_id=$res[0]['cntr_id'];
+			$contingent_name= $res[0]['cntr_name'];
+		}
+		else
+		   $ErrMsg = $ErrMsg + "xxxxxxxxxxx";
+
+	} 
+	
+}
+
+?>

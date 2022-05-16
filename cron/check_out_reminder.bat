@@ -1,0 +1,1 @@
+C:\xampp\php\php.exe -f "C:\www\htdocs\cdms\checkout\cron\checkout_reminder.cron.php"

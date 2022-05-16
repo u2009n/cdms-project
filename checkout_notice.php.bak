@@ -1,0 +1,120 @@
+<?php
+ob_start();
+require_once("../models/config.php");
+//if (!securePage($_SERVER['PHP_SELF'])){die();}
+
+
+
+
+ $cp_no=$loggedInUser->cpnomber;
+ $encrypted = $encrypted = encrypt( $cp_no ); 
+ echo "<pre>";
+ print_r ($_SESSION);
+
+?>
+<table border="1">
+	<tr>
+		<td>
+			<table border="0">
+				<tr>   
+				   <td nowrap ><h1>Notice of Check-out</h1></td>	
+				   <th  nowrap>Downloads</th>
+				   <th  nowrap>Uploads</th>
+				</tr>
+				<tr>
+					
+					<td>Your Mission ends on <?php echo date ('d M Y', strtotime($loggedInUser->eom) ); ?>. 
+						 <p>You are to proceed to MHQ and commence your check-out by 
+							<?php echo date_format(date_add(
+																date_create(
+																				date ('d M Y', strtotime($loggedInUser->eom)) 	
+																			), 
+																date_interval_create_from_date_string("-10 days")
+															), "d M Y"
+													) ; 
+							?>. 
+							Provide the travel and home bank details below.</p>
+						 <p>You  can download the appropriate forms on the download section of this page </p>
+						 <p>&nbsp;</p>
+						 <p>&nbsp;</p>
+						 <p>&nbsp;</p>
+						 <p>&nbsp;</p>
+					</td>
+					<td nowrap  ><a href="#">TS Checkout Form</a><p><a href="#">Sector Check-out Form</a></p><p><a href="#">MHQ Check-out Form</a></p><p><a href="#">Luggage Declaration</a></p></td>
+					<td nowrap  >
+						<select>
+							<option>--Select Document Type--</option>
+							<option>TS Checkout Form</option>
+							<option>Sector Check-Out Form</option>
+							<option>MHQ Check-Out Form</option>
+							<option>Luggage Declaration Form</option>
+							<option>Other</option>
+						</Select>
+						<p></p>
+						<input type="text">
+						
+						<input type="submit" value="Upload"><p><a href="#">TS Checkout Form</a></p><p><a href="#">Sector Check-out Form</a></p><p><a href="#">MHQ Check-out Form</a></p><p><a href="#">Luggage Declaration</a></p>
+					</td>
+				</tr>
+				<tr>
+			   
+					<td colspan="3" nowrap >&nbsp;.</td>
+					
+				
+				</tr>
+
+				<tr>
+				  <th  nowrap colspan="2" >Bank Account Details</th>
+				  <th  nowrap >Travel Details</th>
+				  
+				</tr>
+				<tr>
+					<td colspan="2">
+						<table >
+							<tr>
+								<td>Bank Name</td><td>Branch Name</td><td colspan="2">Mailing Address</td>
+							</tr>
+							<tr>
+								<td><input type="text"><p>&nbsp;</p></td><td><input type="text"><p>&nbsp;</p></td><td colspan="2"><textarea cols="35" rows="4"></textarea></p></td>
+							</tr>
+							<tr>
+								<td>Routing/ABN (US Banks)</td><td>Swift Code(Non US)</td><td>IBAN (EU Banks)</td><td>Account Number</td>
+							</tr>
+							<tr>
+								<td><input type="text"><p>&nbsp;</p></td><td><input type="text"><p>&nbsp;</p></td><td><input type="text"><p>&nbsp;</p></td><td><input type="text"><p>&nbsp;</p></td>
+							</tr>
+							<tr>
+								<td colspan="4"><input type="Submit" Value="Submit"></td>
+							</tr>
+						</table>
+					</td>
+					<td nowrap  >
+						<table style="border: size 2">
+							<tr>
+								<td>Travel Date</td><td>Final Destination</td>
+							</tr>
+							<tr>
+								<td ><input type="text" size ="11" value="11/12/2014"><p>&nbsp;</p></td>
+								<td nowrap  ><select><option>Select Final Destination</option><option>Ndola</option><option>Lusaka</option><option>Livingstone</option></Select><p>&nbsp;</p></td>
+							</tr>
+							<tr>
+								<td colspan="2">Luggage Description</td>
+							</tr>
+							<tr>
+								<td colspan="2"><textarea cols="35" rows="5">3 pieces each containing blankets and clothes</textarea></td>
+							</tr>
+							<tr>
+								<td colspan="2"><input type="submit"  value="Submit"></td>
+							</tr>
+						</table>
+					</td>
+					
+				
+				</tr>
+				<tr>
+					<th colspan="3" nowrap >&nbsp;</th>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
